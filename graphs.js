@@ -91,7 +91,7 @@ function Graph(numero) {
     //funçoes para lista
     this.addEdge = function (v, w) {
         this.adjList.get(v).push(w);
-        ///this.adjList.get(w).push(v);//lista não direcionada tirra  comentario
+        this.adjList.get(w).push(v);//lista não direcionada tirra  comentario
     };
 
     this.removeArestaAdjList = function (v, w) {
@@ -203,8 +203,10 @@ this.bfs = function(v){
     while (!queue.length ==0){
         var u = queue.shift(),
             neighbors = this.adjList.get(u);
+        console.log()
         color[u] = 'grey';
-        for (i=0; i<neighbors.length; i++){
+        console.log(neighbors);
+        for (i=1; i<neighbors.length; i++){
             var w = neighbors[i];
             console.log(neighbors[i]);
             if (color[w] === 'white'){
