@@ -131,6 +131,23 @@ function Graph(numero) {
         return s;
     };
 
+    this.isEuleriano = () => {
+        var grau = new Map();
+        let count = 0;
+        for (let v = 1; v <= vertices.length; v++){
+            grau = this.adjList.get(v).length;
+            console.log(grau);
+            if(grau % 2 != 0) {
+                console.log("Não é euleriano!");
+                count++;
+                break;
+            }
+        }
+        if (count == 0){
+            console.log("É euleriano");
+        }
+    }
+
 
 //-------------funcoes de busca--------------------------------------------------------------------------------//
 
