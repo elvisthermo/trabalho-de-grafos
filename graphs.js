@@ -193,7 +193,7 @@ this.bfs = function(v){
         d = [], //{1}
         pred = []; //{2}
     queue.push(v);
-    console.log("fila: "+queue);
+    //console.log("fila: "+queue);
 
     for (var i=0; i<vertices.length; i++){ //{3}
         d[vertices[i]] = 0; //{4}
@@ -203,24 +203,21 @@ this.bfs = function(v){
     while (!queue.length ==0){
         var u = queue.shift(),
             neighbors = this.adjList.get(u);
-        console.log()
         color[u] = 'grey';
-        console.log(neighbors);
+        //console.log(neighbors);
         for (i=1; i<neighbors.length; i++){
             var w = neighbors[i];
-            console.log(neighbors[i]);
             if (color[w] === 'white'){
                 color[w] = 'grey';
                 d[w] = d[u] + 1;
-                console.log("w:"+w +"u:"+u);
-                pred[w] = u; //{7}
+                pred[w] = u;
                 queue.push(w);
                 console.log(queue);
             }
         }
         color[u] = 'black';
     }
-    return { //{8}
+    return {
         distances: d,
         predecessors: pred
     };

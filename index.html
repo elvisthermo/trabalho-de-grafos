@@ -70,31 +70,28 @@ Por favor selecione arquivo que será lido:
                             }
                         }
 
-                        for(let i=1 ;i< data2.length-1;i++) {
+                        for(let i=1 ;i< data2.length-2;i++) {
                             for(let j=0 ;j < data2.length-1;j++) {
                                 history(graph2,row,i,j);
                             }
                         }
 
-                         // graph2.addEdge(String(1+1+"-"+1+":"+row[1+1][1]),String((1+1)+"-"+(1+1)+":"+row[1+1][1+1]));
-                        //
-                        // graph2.addAresta(1+"-"+1+":"+row[1][1],(1+1)+"-"+1+":"+row[1+1][1]);
                          function history(graph,row,i,j){
                              if(typeof row[i][j] !== 'undefined'){
 
-                                 if(row[i+1][j]===1 ||  row[i+1][j]==='P' || row[i+1][j]==='X') {
+                                 if(row[i+1][j]==='1' ||  row[i+1][j]==='P' || row[i+1][j]==='X') {
                                      graph.addEdge(String(i+"-"+j+":"+row[i][j]),String((i+1)+"-"+j+":"+row[i+1][j]));
                                  }
-                                 if(row[i][j+1]===1 ||  row[i][j+1]==='P' || row[i][j+1]==='X') {
+                                 if(row[i][j+1]==='1' ||  row[i][j+1]==='P' || row[i][j+1]==='X') {
                                       graph.addEdge(String(i+"-"+j+":"+row[i][j]),String(i+"-"+(j+1)+":"+row[i][j+1]));
                                  }
 
                                  if(i>2){
-                                     if(row[i-1][j]===1 ||  row[i-1][j]==='P' || row[i-1][j]==='X') {
+                                     if(row[i-1][j]==='1' ||  row[i-1][j]==='P' || row[i-1][j]==='X') {
                                          graph.addEdge(String(i+"-"+j+":"+row[i][j]),String((i-1)+"-"+j+":"+row[i-1][j]));
                                      }
 
-                                  if(row[i][j-1]===1 ||  row[i][j-1]==='P' || row[i][j-1]==='X') {
+                                  if(row[i][j-1]==='1' ||  row[i][j-1]==='P' || row[i][j-1]==='X') {
                                       graph.addEdge(String(i+"-"+j+":"+row[i][j]),String(i+"-"+(j-1)+":"+row[i][j-1]));
                                   }
                                  }
@@ -103,12 +100,15 @@ Por favor selecione arquivo que será lido:
                              }
                          }
 
+                         var shortestPathA = graph2.bfs(String(8+"-"+8+":"+row[8][8]));
+                         console.log(shortestPathA);
+
+
 						// graph2.addVertex('P');
 						// graph2.addVertex('X');
                         // console.log(vertices);
                         //
 
-                        console.log(graph2.toString());
 
 						// //leitura da matriz do labirinto
                         // for(let j =1 ;j<= data2.length-1;j++) {
