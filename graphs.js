@@ -91,7 +91,7 @@ function Graph(numero) {
     //funçoes para lista
     this.addEdge = function (v, w) {
         this.adjList.get(v).push(w);
-        this.adjList.get(w).push(v);
+        ///this.adjList.get(w).push(v);//lista não direcionada tirra  comentario
     };
 
     this.removeArestaAdjList = function (v, w) {
