@@ -64,20 +64,22 @@ Por favor selecione arquivo que será lido:
 
                          let graph2 = new Graph(data2[0]);
 
-                        for(let i=1 ;i< data2.length-1;i++) {
-                            for(let j=0 ;j < data2.length-1;j++) {
+                        for(let i=1 ;i<= data2.length-1;i++) {
+                            for(let j=0 ;j< data2.length-1;j++) {
                                 graph2.addVertex(String(i+"-"+j+":"+row[i][j]));
                             }
                         }
 
-                        for(let i=1 ;i< data2.length-2;i++) {
+                        for(let i=1 ;i<= data2.length-2;i++) {
                             for(let j=0 ;j < data2.length-1;j++) {
                                 history(graph2,row,i,j);
                             }
                         }
+						
+						console.log(graph2.toString());
 
                          function history(graph,row,i,j){
-                             if(typeof row[i][j] !== 'undefined'){
+                             if(typeof row[i][j] !== 'undefined' && row[i][j]!=0 ){
 
                                  if(row[i+1][j]==='1' ||  row[i+1][j]==='P' || row[i+1][j]==='X') {
                                      graph.addEdge(String(i+"-"+j+":"+row[i][j]),String((i+1)+"-"+j+":"+row[i+1][j]));
@@ -86,7 +88,7 @@ Por favor selecione arquivo que será lido:
                                       graph.addEdge(String(i+"-"+j+":"+row[i][j]),String(i+"-"+(j+1)+":"+row[i][j+1]));
                                  }
 
-                                 if(i>2){
+                                 if(i>1){
                                      if(row[i-1][j]==='1' ||  row[i-1][j]==='P' || row[i-1][j]==='X') {
                                          graph.addEdge(String(i+"-"+j+":"+row[i][j]),String((i-1)+"-"+j+":"+row[i-1][j]));
                                      }
@@ -100,36 +102,8 @@ Por favor selecione arquivo que será lido:
                              }
                          }
 
-                         var shortestPathA = graph2.bfs(String(8+"-"+8+":"+row[8][8]));
+                         var shortestPathA = graph2.bfs(String(4+"-"+0+":"+row[4][0]));
                          console.log(shortestPathA);
-
-
-						// graph2.addVertex('P');
-						// graph2.addVertex('X');
-                        // console.log(vertices);
-                        //
-
-
-						// //leitura da matriz do labirinto
-                        // for(let j =1 ;j<= data2.length-1;j++) {
-                         //    for(let i =0 ;i<=data2.length-1;i++) {
-                         //        if(row[j][i] == '1'){
-                         //            graph2.addEdge(vertices[j-1],vertices[i]);
-                         //        }
-						// 		else if(row[j][i] == 'P'){
-						// 			graph2.addEdge(vertices[j-1],vertices[i]);
-						// 		}
-						// 		else if(row[j][i] == 'X'){
-						// 			graph2.addEdge(vertices[j-1],vertices[i]);
-						// 		}
-                         //    }
-                        // }
-						// console.log("Lista de adjcencia");
-                        // console.log(graph2.toString());
-                        // var shortestPathA = graph2.bfs('4');
-                        // console.log(shortestPathA);
-                        //
-						// //document.getElementById("content").innerHTML = graph2.toString();
 
                     }
                     fileReader.readAsText(fileTobeRead);
