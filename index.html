@@ -32,105 +32,39 @@ Por favor selecione arquivo que será lido:
             fileSelected.addEventListener('change', function (e) {
 
                 let fileExtension = /text.*/;
-
                 let fileTobeRead = fileSelected.files[0];
                 if (fileTobeRead.type.match(fileExtension)) {
                     let fileReader = new FileReader();
 
                     fileReader.onload = function (e) {
-
                         fileContents = document.getElementById('filecontents');
                         fileContents.innerText = fileReader.result;
                         let data = fileContents.innerText;
-
+//---------------leitura do arquivo-----------------------------------------------------------
                         let data2 = data.split('\n');
-                        console.log(data2);
+                        //console.log(data2);
 
-                        let row = [];
-                        //row[0] = 10;
-                        for(let i=1 ;i< data2.length;i++) {
-                            row[i] = data2[i].split(" ");
-                        }
-                        console.log(row);
+//-----------------------inicie funções aqui--------------------------------------------------
 
-                        console.log("pirata: "+row[4][0]);
-                        console.log("tesouro: "+row[8][0]);
-
-//-----------------------inicie funções aqui--------------------------------------------------------------------------------------
-
-                         //var num  = data2[0];
-
-//------------------------lista adjecencia-----------------------------------------------------
-
-                         let graph2 = new Graph(data2[0]);
-
-                        for(let i=1 ;i< data2.length-1;i++) {
-                            for(let j=0 ;j < data2.length-1;j++) {
-                                graph2.addVertex(String(i+"-"+j+":"+row[i][j]));
-                            }
-                        }
-
-                        for(let i=1 ;i< data2.length-2;i++) {
-                            for(let j=0 ;j < data2.length-1;j++) {
-                                history(graph2,row,i,j);
-                            }
-                        }
-
-                         function history(graph,row,i,j){
-                             if(typeof row[i][j] !== 'undefined'){
-
-                                 if(row[i+1][j]==='1' ||  row[i+1][j]==='P' || row[i+1][j]==='X') {
-                                     graph.addEdge(String(i+"-"+j+":"+row[i][j]),String((i+1)+"-"+j+":"+row[i+1][j]));
-                                 }
-                                 if(row[i][j+1]==='1' ||  row[i][j+1]==='P' || row[i][j+1]==='X') {
-                                      graph.addEdge(String(i+"-"+j+":"+row[i][j]),String(i+"-"+(j+1)+":"+row[i][j+1]));
-                                 }
-
-                                 if(i>2){
-                                     if(row[i-1][j]==='1' ||  row[i-1][j]==='P' || row[i-1][j]==='X') {
-                                         graph.addEdge(String(i+"-"+j+":"+row[i][j]),String((i-1)+"-"+j+":"+row[i-1][j]));
-                                     }
-
-                                  if(row[i][j-1]==='1' ||  row[i][j-1]==='P' || row[i][j-1]==='X') {
-                                      graph.addEdge(String(i+"-"+j+":"+row[i][j]),String(i+"-"+(j-1)+":"+row[i][j-1]));
-                                  }
-                                 }
+//------------------------lista adjecencia----------------------------------------------------
 
 
-                             }
-                         }
+                        let graph2 = new Graph(3);
 
-                         var shortestPathA = graph2.bfs(String(8+"-"+8+":"+row[8][8]));
-                         console.log(shortestPathA);
+                        graph2.addVertex(1);
+                        graph2.addVertex(2);
+                        graph2.addVertex(3);
+
+                        graph2.addEdge(1,2,5);
+                        graph2.addEdge(3,1,2);
+
+                        console.log(graph2.toString());
 
 
-						// graph2.addVertex('P');
-						// graph2.addVertex('X');
-                        // console.log(vertices);
-                        //
-
-
-						// //leitura da matriz do labirinto
-                        // for(let j =1 ;j<= data2.length-1;j++) {
-                         //    for(let i =0 ;i<=data2.length-1;i++) {
-                         //        if(row[j][i] == '1'){
-                         //            graph2.addEdge(vertices[j-1],vertices[i]);
-                         //        }
-						// 		else if(row[j][i] == 'P'){
-						// 			graph2.addEdge(vertices[j-1],vertices[i]);
-						// 		}
-						// 		else if(row[j][i] == 'X'){
-						// 			graph2.addEdge(vertices[j-1],vertices[i]);
-						// 		}
-                         //    }
-                        // }
-						// console.log("Lista de adjcencia");
-                        // console.log(graph2.toString());
-                        // var shortestPathA = graph2.bfs('4');
-                        // console.log(shortestPathA);
-                        //
-						// //document.getElementById("content").innerHTML = graph2.toString();
-
+//-------------------------bfs----------------------------------------------------------------
+                        //var shortestPathA = graph2.bfs(String(8+"-"+8+":"+row[8][8]));
+                        //console.log(shortestPathA)
+                        // ;
                     }
                     fileReader.readAsText(fileTobeRead);
                 }

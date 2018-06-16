@@ -5,14 +5,6 @@ function Graph(numero) {
 
     let vertMat = [];
 
-
-    //adicionar vertices lista
-    this.addVertex = function (v) {
-        vertices.push(v);
-        this.adjList.set(v, []);
-
-    };
-
     //funções para matriz
     function montarLinha() {
         lista = [];
@@ -87,12 +79,26 @@ function Graph(numero) {
         console.log("------------");
     };
 
-
     //funçoes para lista
-    this.addEdge = function (v, w) {
-        this.adjList.get(v).push(w);
-        this.adjList.get(w).push(v);//lista não direcionada tirra  comentario
+
+    //adicionar vertices lista
+    this.addVertex = function (v) {
+        vertices.push(v);
+        this.adjList.set(v, []);
+
     };
+
+    this.addEdge = function (v, w,value) {
+        this.adjList.get(v).push(w,['value' ,value]);
+        this.adjList.get(w).push(v,['value', value]);//lista não direcionada tirra  comentario
+
+    };
+
+    this.addEdged = function (v, w,value) {
+        this.adjList.get(v).push(w,['value' ,value]);
+        //this.adjList.get(w).push(v);//lista não direcionada tirra  comentario
+    };
+
 
     this.removeArestaAdjList = function (v, w) {
         let index1 = adjList.get(v).indexOf(w);
@@ -174,7 +180,7 @@ function Graph(numero) {
     }
 
 
-//--------------busca em largura
+//--------------busca em largura-----------------------------------------
 
     var initializeColor = function () {
         var color = [];
@@ -237,136 +243,50 @@ this.bfs = function(v){
         }
         console.log(s); //{19}
     }
-};
 
 
-/*
-    var initializeColor = function(){
-        var color = [];
-        for (var i=0; i<vertices.length; i++){
-            color[vertices[i]] = 'white'; //{1}
-        }
-        return color;
-    };
+}
 
+}
 
-*/
-/*
-        this.bfs = function(v, callback){
-            var color = initializeColor(), //{2}
-                queue = []; //{3}
-                queue.push(v); //{4}
-                console.log(queue);
-            while (!queue.length == 0 || !queue ==null){
-                var u = queue.shift(); //{6}
+//-------------------------algoritimo de floyd warshall--------------------------------------------
 
-                    neighbors = this.adjList.get(u); //{7}
-                color[u] = 'grey'; //{8}
-
-                for (var i=0; i<neighbors.length; i++){ //{9}
-                    var w = neighbors[i]; //{10}
-                    if (color[w] === 'white'){ //{11}
-                        color[w] = 'grey'; //{12}
-                        queue.push(w); //{13}
-
-                    }
-                }
-                color[u] = 'black'; //{14}
-                if (callback){ //{15}
-                    callback(u);
+var floydWarshall = (function () {
+    /**
+     * Matrix used for the algorithm.
+     */
+    var dist;
+    /**
+     * Initialize the distance matrix.
+     *
+     * @private
+     * @param {Array} graph Distance matrix of the array.
+     * @return {Array} Distance matrix used for the algorithm.
+     */
+    function init(graph) {
+        var dist = [];
+        var size = graph.length;
+        for (var i = 0; i < size; i += 1) {
+            dist[i] = [];
+            for (var j = 0; j < size; j += 1) {
+                if (i === j) {
+                    dist[i][j] = 0;
+                } else if (!isFinite(graph[i][j])) {
+                    dist[i][j] = Infinity;
+                } else {
+                    dist[i][j] = graph[i][j];
                 }
             }
-        };
-
-
-};
-
-*/
-
-/*
-//leitura do arquivo
-var fs = require('fs');
-let newData =[];
-let edge = [];
-
-fs.readFile('./grafo1.txt', 'utf-8',function (err, data) {
-    if (err) throw err;
-    newData = data.split('\n');
-
-
-// //var timeStartMat = Date.now();
-let vertices = [];
-var num  = newData[0];
-
-
-// let graph = new Graph(num);
-//
-//     graph.matAdj();
-//     for(let i= 0;i <newData[0].length;i++) {
-//         graph.addVertex(i);
-//
-//     }
-//     for(let i= 1;i <newData.length;i++) {
-//         let variavelMagica =newData[i].split(' ');
-//         let num1 =  variavelMagica[0];
-//         let num2 =  variavelMagica[1];
-//
-//         graph.addAresta(num1,num2,1);
-//     }
-//     graph.showMatrix();
-//
-//     var timeStart = Date.now();
-//     for(let i=0; i < 10; i++){
-//         graph.checkAresta(0,99);
-//     }
-//     var timeEnd = Date.now();
-//     console.log("verificação de aresta tempo medio: " + (timeEnd - timeStart)/10 + " ms . . .");
-//
-//     var timeStart2 = Date.now();
-//     for(let i=0; i < 10; i++){
-//         graph.grauVertice(0);
-//     }
-//     var timeEnd2 = Date.now();
-//     console.log("verificação do grau tempo medio: " + (timeEnd2 - timeStart2)/10 + " ms . . .");
-//
-
- let graph2 = new Graph(num);
-
-    for(let i=0 ;i< newData[0];i++) {
-     graph2.addVertex(i);
-     }
-
-
-   for(let i= 1;i<newData.length;i++) {
-       let variavelMagica = newData[i].split(' ');
-       let num1 =  variavelMagica[0];
-       let num2 =  variavelMagica[1];
-
-       graph2.addEdge(parseInt(num1),parseInt(num2));
-     }
-
-console.log(graph2.toString());
-    var timeStart = Date.now();
-    for(let i=0; i < 10; i++) {
-        graph2.checkArestaAdjList(0,1);
+        }
+        return dist;
     }
 
-    var timeEnd = Date.now();
-    console.log("verificação de aresta tempo medio: " + (timeEnd - timeStart)/10 + " ms . . .");
+    var distMatrix =
+    [[Infinity, 7,        9,       Infinity,  Infinity, 16],
+     [7,        Infinity, 10,       15,       Infinity, Infinity],
+     [9,        10,       Infinity, 11,       Infinity, 2],
+     [Infinity, 15,       11,       Infinity, 6,        Infinity],
+     [Infinity, Infinity, Infinity, 6,        Infinity, 9],
+ [16,       Infinity, 2,        Infinity, 9,        Infinity]];
 
-    var timeStart2 = Date.now();
-    for(let i=0; i < 10; i++){
-        graph2.grauLista(0);
-    }
-    var timeEnd2 = Date.now();
-    console.log("verificação do grau tempo medio: " + (timeEnd2 - timeStart2)/10 + " ms . . .");
-
-
- console.log("------------");
-
-
-
- });
-
-*/
-}
+    var shortestDists = floydWarshall(distMatrix);

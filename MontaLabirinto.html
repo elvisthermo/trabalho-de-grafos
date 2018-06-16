@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width" />
+
+    <title>Projeto Grafos labirintos 😐</title>
+    <script src="graphs.js"></script>
+
+    <style type="text/css">
+        #filecontents {
+            border: double;
+            overflow-y: scroll;
+            width: 200px;
+            height: 100px;
+        }
+    </style>
+</head>
+<body>
+Por favor selecione arquivo para montar o labirinto:
+<input type="file" id="txtfiletoread" /><br />
+<div>Conteúdo do arquivo:</div>
+<div id="filecontents">
+</div>
+
+<script>
+    var fileContents;
+    window.onload = function () {
+        if (window.File && window.FileReader && window.FileList && window.Blob) {
+            let fileSelected = document.getElementById('txtfiletoread');
+            fileSelected.addEventListener('change', function (e) {
+
+                let fileExtension = /text.*/;
+
+                let fileTobeRead = fileSelected.files[0];
+                if (fileTobeRead.type.match(fileExtension)) {
+                    let fileReader = new FileReader();
+
+                    fileReader.onload = function (e) {
+
+                        fileContents = document.getElementById('filecontents');
+                        fileContents.innerText = fileReader.result;
+                        let data = fileContents.innerText;
+
+                        let data2 = data.split('\n');
+                        console.log(data2);
+
+                        let row = [];
+                        //row[0] = 10;
+                        for(let i=1 ;i< data2.length;i++) {
+                            row[i] = data2[i].split(" ");
+                        }
+                        console.log(row);
+
+                        console.log("pirata: "+row[4][0]);
+                        console.log("tesouro: "+row[8][0]);
+
+//-----------------------inicie funções aqui--------------------------------------------------------------------------------------
+
+                        //var num  = data2[0];
+
+//------------------------lista adjecencia-----------------------------------------------------
+
+                        let graph2 = new Graph(data2[0]);
+
+                        for(let i=1 ;i< data2.length-1;i++) {
+                            for(let j=0 ;j < data2.length-1;j++) {
+                                graph2.addVertex(String(i+"-"+j+":"+row[i][j]));
+                            }
+                        }
+
+                        for(let i=1 ;i< data2.length-2;i++) {
+                            for(let j=0 ;j < data2.length-1;j++) {
+                                history(graph2,row,i,j);
+                            }
+                        }
+
+                        function history(graph,row,i,j){
+                            if(typeof row[i][j] !== 'undefined'){
+
+                                if(row[i+1][j]==='1' ||  row[i+1][j]==='P' || row[i+1][j]==='X') {
+                                    graph.addEdge(String(i+"-"+j+":"+row[i][j]),String((i+1)+"-"+j+":"+row[i+1][j]));
+                                }
+                                if(row[i][j+1]==='1' ||  row[i][j+1]==='P' || row[i][j+1]==='X') {
+                                    graph.addEdge(String(i+"-"+j+":"+row[i][j]),String(i+"-"+(j+1)+":"+row[i][j+1]));
+                                }
+
+                                if(i>2){
+                                    if(row[i-1][j]==='1' ||  row[i-1][j]==='P' || row[i-1][j]==='X') {
+                                        graph.addEdge(String(i+"-"+j+":"+row[i][j]),String((i-1)+"-"+j+":"+row[i-1][j]));
+                                    }
+
+                                    if(row[i][j-1]==='1' ||  row[i][j-1]==='P' || row[i][j-1]==='X') {
+                                        graph.addEdge(String(i+"-"+j+":"+row[i][j]),String(i+"-"+(j-1)+":"+row[i][j-1]));
+                                    }
+                                }
+                            }
+                        }
+
+                        //var shortestPathA = graph2.bfs(String(8+"-"+8+":"+row[8][8]));
+                        //console.log(shortestPathA);
+
+                    }
+                    fileReader.readAsText(fileTobeRead);
+                }
+                else {
+                    alert("Por favor selecione arquivo texto");
+                }
+
+            }, false);
+        }
+        else {
+            alert("Arquivo(s) não suportado(s)");
+        }
+    }
+
+
+</script>
+<div id ="content"></div>
+</body>
+</html>
