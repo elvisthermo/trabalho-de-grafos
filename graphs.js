@@ -137,6 +137,7 @@ function Graph(numero) {
         return s;
     };
 
+    //-----------verificar se o grafo e euleriano
     this.isEuleriano = () => {
         var grau = new Map();
         let count = 0;
@@ -185,7 +186,7 @@ function Graph(numero) {
     var initializeColor = function () {
         var color = [];
         for (var i = 0; i < vertices.length; i++) {
-            color[vertices[i]] = 'white'; //{1}
+            color[vertices[i]] = 'white';
         }
         console.log("cores:" + color);
         return color;
@@ -201,9 +202,9 @@ this.bfs = function(v){
     queue.push(v);
     //console.log("fila: "+queue);
 
-    for (var i=0; i<vertices.length; i++){ //{3}
-        d[vertices[i]] = 0; //{4}
-        pred[vertices[i]] = null; //{5}
+    for (var i=0; i<vertices.length; i++){
+        d[vertices[i]] = 0;
+        pred[vertices[i]] = null;
     }
 
     while (!queue.length ==0){
@@ -228,65 +229,23 @@ this.bfs = function(v){
         predecessors: pred
     };
 
-    var fromVertex = vertices[0]; //{9}
-    for (var i=1; i<vertices.length; i++){ //{10}
-        var toVertex = vertices[i], //{11}
-            path = []; //{12}
+    var fromVertex = vertices[0];
+    for (var i=1; i<vertices.length; i++){
+        var toVertex = vertices[i],
+            path = [];
         for (var v=toVertex; v!== fromVertex;
-             v=shortestPathA.predecessors[v]) { //{13}
-            path.push(v); //{14}
+             v=shortestPathA.predecessors[v]) {
+            path.push(v);
         }
-        path.push(fromVertex); //{15}
-        var s = path.pop(); //{16}
-        while (!path==null){ //{17}
-            s += ' - ' + path.pop(); //{18}
+        path.push(fromVertex);
+        var s = path.pop();
+        while (!path==null){
+            s += ' - ' + path.pop();
         }
-        console.log(s); //{19}
+        console.log(s);
     }
 
 
 }
 
 }
-
-//-------------------------algoritimo de floyd warshall--------------------------------------------
-
-var floydWarshall = (function () {
-    /**
-     * Matrix used for the algorithm.
-     */
-    var dist;
-    /**
-     * Initialize the distance matrix.
-     *
-     * @private
-     * @param {Array} graph Distance matrix of the array.
-     * @return {Array} Distance matrix used for the algorithm.
-     */
-    function init(graph) {
-        var dist = [];
-        var size = graph.length;
-        for (var i = 0; i < size; i += 1) {
-            dist[i] = [];
-            for (var j = 0; j < size; j += 1) {
-                if (i === j) {
-                    dist[i][j] = 0;
-                } else if (!isFinite(graph[i][j])) {
-                    dist[i][j] = Infinity;
-                } else {
-                    dist[i][j] = graph[i][j];
-                }
-            }
-        }
-        return dist;
-    }
-
-    var distMatrix =
-    [[Infinity, 7,        9,       Infinity,  Infinity, 16],
-     [7,        Infinity, 10,       15,       Infinity, Infinity],
-     [9,        10,       Infinity, 11,       Infinity, 2],
-     [Infinity, 15,       11,       Infinity, 6,        Infinity],
-     [Infinity, Infinity, Infinity, 6,        Infinity, 9],
- [16,       Infinity, 2,        Infinity, 9,        Infinity]];
-
-    var shortestDists = floydWarshall(distMatrix);
