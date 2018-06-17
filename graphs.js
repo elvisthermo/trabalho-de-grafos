@@ -90,7 +90,7 @@ function Graph(numero) {
 
     this.addEdge = function (v, w,value) {
         this.adjList.get(v).push(w,['value' ,value]);
-        this.adjList.get(w).push(v,['value', value]);//lista não direcionada tirra  comentario
+        this.adjList.get(w).push(v,['value' ,value]);//lista não direcionada tirra  comentario
 
     };
 
@@ -157,11 +157,11 @@ function Graph(numero) {
 
 
 //-------------funcoes de busca--------------------------------------------------------------------------------//
-
+//---------------busca em profundidae-------------------------------------------------------------------------//
     this.buscaProfundidade = function (vInicial) {
 
         let visit = [];
-        for (let i = 0; i < this.numero; i++)
+        for (let i = 0; i < this.num; i++)
             visit[i] = false;
         this.DFSUtil(vInicial, visit);
     }
@@ -180,9 +180,7 @@ function Graph(numero) {
         }
     }
 
-
-//--------------busca em largura-----------------------------------------
-
+//-------colorir arestas------------------------------------------
     var initializeColor = function () {
         var color = [];
         for (var i = 0; i < vertices.length; i++) {
@@ -192,13 +190,13 @@ function Graph(numero) {
         return color;
     };
 
-
+//--------------busca em largura-----------------------------------------
 this.bfs = function(v){
     console.log("inicio");
     var color = initializeColor(),
         queue = [],
-        d = [], //{1}
-        pred = []; //{2}
+        d = [],
+        pred = [];
     queue.push(v);
     //console.log("fila: "+queue);
 
@@ -245,7 +243,35 @@ this.bfs = function(v){
         console.log(s);
     }
 
-
 }
+
+//-------------ordenação topologica-----------------//
+
+  this.ordenacaoTopologica = ()  => {
+        var stack = [];
+        var visited = [];
+        for (var i = 0; i < this.num; i++) {
+            visited[i] = false;
+        }
+        for (var i = 0; i < this.num; i++) {
+            if (visited[i] == false) {
+                this.topSortHelper(i, visited, stack);
+            }
+        }
+        for (var i = 0; i < stack.length; i++) {
+            if (stack[i] != undefined && stack[i] != false) {
+                console.log(vertices[stack[i]]);
+            }
+        }
+    }
+    this.topSortHelper = (v, visited, stack) => {
+        visited[v] = true;
+        for(var w in this.adjList[v]) {
+            if (!visited[w]) {
+                this.topSortHelper(visited[w], visited, stack);
+            }
+        }
+        stack.push(v);
+    }
 
 }

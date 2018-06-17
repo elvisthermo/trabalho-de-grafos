@@ -21,29 +21,8 @@
       <file leaf-file-name="graphs.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/graphs.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="34">
-              <caret line="131" column="53" lean-forward="true" selection-start-line="131" selection-start-column="53" selection-end-line="131" selection-end-column="53" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="floydwarshal.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/floydwarshal.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="306">
-              <caret line="46" column="14" lean-forward="true" selection-start-line="46" selection-start-column="14" selection-end-line="46" selection-end-column="14" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="bellmanFord.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/bellmanFord.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="153">
-              <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
-              <folding>
-                <element signature="n#!!doc" expanded="true" />
-              </folding>
+            <state relative-caret-position="272">
+              <caret line="97" column="38" selection-start-line="97" selection-start-column="38" selection-end-line="97" selection-end-column="38" />
             </state>
           </provider>
         </entry>
@@ -51,8 +30,8 @@
       <file leaf-file-name="index.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/index.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="59" column="55" lean-forward="true" selection-start-line="59" selection-start-column="55" selection-end-line="59" selection-end-column="55" />
+            <state relative-caret-position="289">
+              <caret line="76" column="33" selection-start-line="76" selection-start-column="33" selection-end-line="76" selection-end-column="33" />
             </state>
           </provider>
         </entry>
@@ -85,8 +64,8 @@
         <option value="$PROJECT_DIR$/floydwarshal.js" />
         <option value="$PROJECT_DIR$/labirinto.html" />
         <option value="$PROJECT_DIR$/MontaLabirinto.html" />
-        <option value="$PROJECT_DIR$/index.html" />
         <option value="$PROJECT_DIR$/graphs.js" />
+        <option value="$PROJECT_DIR$/index.html" />
       </list>
     </option>
   </component>
@@ -176,25 +155,25 @@
       <workItem from="1528923781695" duration="2309000" />
       <workItem from="1529032599982" duration="776000" />
       <workItem from="1529038986285" duration="230000" />
-      <workItem from="1529154999182" duration="16718000" />
+      <workItem from="1529154999182" duration="17412000" />
+      <workItem from="1529240879033" duration="12597000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="44605000" />
+    <option name="totallyTimeSpent" value="57896000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.105417274" />
       <window_info anchor="bottom" id="TODO" order="6" />
       <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="7" />
-      <window_info active="true" anchor="bottom" id="Run" order="2" visible="true" weight="0.3290938" />
+      <window_info anchor="bottom" id="Event Log" order="10" side_tool="true" weight="0.3290938" />
+      <window_info anchor="bottom" id="Version Control" order="9" />
+      <window_info anchor="bottom" id="Run" order="2" weight="0.3290938" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="7" />
+      <window_info anchor="bottom" id="Terminal" order="8" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
@@ -205,25 +184,6 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Find" order="1" />
     </layout>
-    <layout-to-restore>
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
-      <window_info anchor="bottom" id="Docker" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
-      <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.105417274" />
-      <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
-      <window_info anchor="right" id="Commander" order="0" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
-      <window_info anchor="bottom" id="TODO" order="6" />
-      <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.3290938" />
-      <window_info anchor="bottom" id="Find" order="1" />
-      <window_info anchor="bottom" id="Debug" order="3" weight="0.4" />
-      <window_info anchor="bottom" id="Terminal" order="8" />
-      <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="10" />
-      <window_info anchor="bottom" id="Message" order="0" />
-      <window_info id="Favorites" order="2" side_tool="true" />
-    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -507,20 +467,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/leituraLabirinto.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret lean-forward="true" selection-end-line="34" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" column="34" selection-start-line="2" selection-start-column="34" selection-end-line="3" selection-end-column="85" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/leituraLabirinto.js" />
+    <entry file="file://$PROJECT_DIR$/test.js" />
     <entry file="file://$APPLICATION_HOME_DIR$/plugins/JavaScriptLanguage/jsLanguageServicesImpl/external/lib.es5.d.ts">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="124">
@@ -528,16 +476,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/floydwarshal.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="46" column="14" lean-forward="true" selection-start-line="46" selection-start-column="14" selection-end-line="46" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/labirinto.html">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/labirinto.html" />
     <entry file="file://$PROJECT_DIR$/MontaLabirinto.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -555,17 +494,24 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/floydwarshal.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="46" column="14" lean-forward="true" selection-start-line="46" selection-start-column="14" selection-end-line="46" selection-end-column="14" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/graphs.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="131" column="53" lean-forward="true" selection-start-line="131" selection-start-column="53" selection-end-line="131" selection-end-column="53" />
+        <state relative-caret-position="272">
+          <caret line="97" column="38" selection-start-line="97" selection-start-column="38" selection-end-line="97" selection-end-column="38" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="59" column="55" lean-forward="true" selection-start-line="59" selection-start-column="55" selection-end-line="59" selection-end-column="55" />
+        <state relative-caret-position="289">
+          <caret line="76" column="33" selection-start-line="76" selection-start-column="33" selection-end-line="76" selection-end-column="33" />
         </state>
       </provider>
     </entry>

@@ -47,8 +47,8 @@ Por favor selecione arquivo que será lido:
 //-----------------------inicie funções aqui--------------------------------------------------
 
 //------------------------lista adjecencia----------------------------------------------------
-
-
+                        //
+                        /*
                         let graph2 = new Graph(3);
 
                         graph2.addVertex(1);
@@ -58,7 +58,25 @@ Por favor selecione arquivo que será lido:
                         graph2.addEdge(1,2,5);
                         graph2.addEdge(3,1,2);
                         console.log(graph2.toString());
+*/
+                        graph2 = new  Graph(6);
+                        myVertices = ['A','B','C','D','E','F'];
+                        for (i=0; i<myVertices.length; i++){
+                            graph2.addVertex(myVertices[i]);
+                        }
+                        graph2.addEdge('A', 'C',15);
+                        graph2.addEdge('A', 'D',46);
+                        graph2.addEdge('B', 'D',19);
+                        graph2.addEdge('B', 'E',78);
+                        graph2.addEdge('C', 'F',1);
+                        graph2.addEdge('F', 'E',65);
 
+                        //var result2 = graph2.buscaProfundidade('C');
+                        //var result3 = graph2.bfs('C');
+                        //console.log(result3);
+                        console.log(graph2.toString());
+
+                        //var result = graph2.ordenacaoTopologica();
 //-------------------------bfs----------------------------------------------------------------
                         //var shortestPathA = graph2.bfs(String(8+"-"+8+":"+row[8][8]));
                         //console.log(shortestPathA)
