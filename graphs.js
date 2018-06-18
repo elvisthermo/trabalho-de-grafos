@@ -1,31 +1,36 @@
 function Graph(numero) {
-    this.num = numero
+    this.num = numero;
     let vertices = [];
     this.adjList = new Map();
-
     let vertMat = [];
 
     //funções para matriz
     function montarLinha() {
         lista = [];
-        for (let i = 0; i < num; i++) {//numero vertices
+        for (let i = 0; i < numero; i++) {//numero vertices
             lista.push(0);
         }
         return lista;
     }
 
+    this.getVertMat = function () {
+        console.log(vertMat.length);
+    }
+
     //adicionar elementos a matriz
     this.matAdj = function () {
         //vertMat.push(vertices);
-        for (let i = 0; i < num; i++) {//numero veritices
-            let lista = montarLinha(vertices);
+        for (let i = 0; i < this.num; i++) {//numero veritices
+            console.log(i);
+            let lista = montarLinha(numero);
             vertMat.push(lista);
         }
+        console.log(vertMat);
     };
 
     //adicionar aresta
     this.addAresta = function (v1, v2, value) {
-        vertMat[v1].splice(v2, 1, 1);
+        vertMat[v1].splice(v2, 1, value);
 
     };
 
@@ -273,5 +278,61 @@ this.bfs = function(v){
         }
         stack.push(v);
     }
+
+    this.dijkstra = function(src){
+        var dist = [], visited = [], length = vertMat.length;
+        for (var i = 0; i < length; i++) { //{1}
+            dist[i] = INF;
+            visited[i] = false;
+        }
+
+        dist[src] = 0; //{2}
+        for (var i = 0; i < length-1; i++){ //{3}
+            var u = minDistance(dist, visited); //{4}
+            visited[u] = true; //{5}
+            for (var v = 0; v < length; v++){
+                if (!visited[v] &&
+                    this.graph[u][v]!=0 && dist[u] != INF &&
+                    dist[u]+this.graph[u][v] < dist[v]){ //{6}
+                    dist[v] = dist[u] + this.graph[u][v]; //{7}
+                }
+            }
+        }
+        return dist; //{8}
+    };
+
+        this.dijkstra = function(src){
+            var dist = [], visited = [],
+                length = vertMat.length;
+            for (var i = 0; i < length; i++) {
+                dist[i] = Infinity;
+                visited[i] = false;
+            }
+            dist[src] = 0; //{2}
+            for (var i = 0; i < length-1; i++){
+                var u = minDistance(dist, visited);
+                visited[u] = true;
+                for (var v = 0; v < length; v++){
+                    if (!visited[v] && vertMat[u][v]!=0 && dist[u] != Infinity && dist[u]+vertMat[u][v] < dist[v]){ //{6}
+                        dist[v] = dist[u] + this.vertMat[u][v];
+                    }
+                }
+            }
+            return dist;
+        };
+
+    var minDistance = function(dist, visited){
+        var min = Infinity, minIndex = -1;
+        for (var v = 0; v < dist.length; v++){
+            if (visited[v] == false && dist[v] <= min){
+                min = dist[v];
+                minIndex = v;
+            }
+        }
+        return minIndex;
+    };
+
+
+
 
 }
