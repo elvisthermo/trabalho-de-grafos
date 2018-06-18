@@ -93,14 +93,14 @@ function Graph(numero) {
 
     };
 
-    this.addEdge = function (v, w,value) {
-        this.adjList.get(v).push(w,['value' ,value]);
-        this.adjList.get(w).push(v,['value' ,value]);//lista não direcionada tirra  comentario
+    this.addEdge = function (v, w, value) {
+        this.adjList.get(v).push(w, ['value', value]);
+        this.adjList.get(w).push(v, ['value', value]);//lista não direcionada tirra  comentario
 
     };
 
-    this.addEdged = function (v, w,value) {
-        this.adjList.get(v).push(w,['value' ,value]);
+    this.addEdged = function (v, w, value) {
+        this.adjList.get(v).push(w, ['value', value]);
         //this.adjList.get(w).push(v);//lista não direcionada tirra  comentario
     };
 
@@ -146,16 +146,16 @@ function Graph(numero) {
     this.isEuleriano = () => {
         var grau = new Map();
         let count = 0;
-        for (let v = 1; v <= vertices.length; v++){
+        for (let v = 1; v <= vertices.length; v++) {
             grau = this.adjList.get(v).length;
             console.log(grau);
-            if(grau % 2 != 0) {
+            if (grau % 2 != 0) {
                 console.log("Não é euleriano!");
                 count++;
                 break;
             }
         }
-        if (count == 0){
+        if (count == 0) {
             console.log("É euleriano");
         }
     }
@@ -196,63 +196,63 @@ function Graph(numero) {
     };
 
 //--------------busca em largura-----------------------------------------
-this.bfs = function(v){
-    console.log("inicio");
-    var color = initializeColor(),
-        queue = [],
-        d = [],
-        pred = [];
-    queue.push(v);
-    //console.log("fila: "+queue);
+    this.bfs = function (v) {
+        console.log("inicio");
+        var color = initializeColor(),
+            queue = [],
+            d = [],
+            pred = [];
+        queue.push(v);
+        //console.log("fila: "+queue);
 
-    for (var i=0; i<vertices.length; i++){
-        d[vertices[i]] = 0;
-        pred[vertices[i]] = null;
-    }
+        for (var i = 0; i < vertices.length; i++) {
+            d[vertices[i]] = 0;
+            pred[vertices[i]] = null;
+        }
 
-    while (!queue.length ==0){
-        var u = queue.shift(),
-            neighbors = this.adjList.get(u);
-        color[u] = 'grey';
-        //console.log(neighbors);
-        for (i=1; i<neighbors.length; i++){
-            var w = neighbors[i];
-            if (color[w] === 'white'){
-                color[w] = 'grey';
-                d[w] = d[u] + 1;
-                pred[w] = u;
-                queue.push(w);
-                console.log(queue);
+        while (!queue.length == 0) {
+            var u = queue.shift(),
+                neighbors = this.adjList.get(u);
+            color[u] = 'grey';
+            //console.log(neighbors);
+            for (i = 1; i < neighbors.length; i++) {
+                var w = neighbors[i];
+                if (color[w] === 'white') {
+                    color[w] = 'grey';
+                    d[w] = d[u] + 1;
+                    pred[w] = u;
+                    queue.push(w);
+                    console.log(queue);
+                }
             }
+            color[u] = 'black';
         }
-        color[u] = 'black';
-    }
-    return {
-        distances: d,
-        predecessors: pred
-    };
+        return {
+            distances: d,
+            predecessors: pred
+        };
 
-    var fromVertex = vertices[0];
-    for (var i=1; i<vertices.length; i++){
-        var toVertex = vertices[i],
-            path = [];
-        for (var v=toVertex; v!== fromVertex;
-             v=shortestPathA.predecessors[v]) {
-            path.push(v);
+        var fromVertex = vertices[0];
+        for (var i = 1; i < vertices.length; i++) {
+            var toVertex = vertices[i],
+                path = [];
+            for (var v = toVertex; v !== fromVertex;
+                 v = shortestPathA.predecessors[v]) {
+                path.push(v);
+            }
+            path.push(fromVertex);
+            var s = path.pop();
+            while (!path == null) {
+                s += ' - ' + path.pop();
+            }
+            console.log(s);
         }
-        path.push(fromVertex);
-        var s = path.pop();
-        while (!path==null){
-            s += ' - ' + path.pop();
-        }
-        console.log(s);
-    }
 
-}
+    }
 
 //-------------ordenação topologica-----------------//
 
-  this.ordenacaoTopologica = ()  => {
+    this.ordenacaoTopologica = () => {
         var stack = [];
         var visited = [];
         for (var i = 0; i < this.num; i++) {
@@ -271,7 +271,7 @@ this.bfs = function(v){
     }
     this.topSortHelper = (v, visited, stack) => {
         visited[v] = true;
-        for(var w in this.adjList[v]) {
+        for (var w in this.adjList[v]) {
             if (!visited[w]) {
                 this.topSortHelper(visited[w], visited, stack);
             }
@@ -279,7 +279,7 @@ this.bfs = function(v){
         stack.push(v);
     }
 
-    this.dijkstra = function(src){
+    this.dijkstra = function (src) {
         var dist = [], visited = [], length = vertMat.length;
         for (var i = 0; i < length; i++) { //{1}
             dist[i] = INF;
@@ -287,13 +287,13 @@ this.bfs = function(v){
         }
 
         dist[src] = 0; //{2}
-        for (var i = 0; i < length-1; i++){ //{3}
+        for (var i = 0; i < length - 1; i++) { //{3}
             var u = minDistance(dist, visited); //{4}
             visited[u] = true; //{5}
-            for (var v = 0; v < length; v++){
+            for (var v = 0; v < length; v++) {
                 if (!visited[v] &&
-                    this.graph[u][v]!=0 && dist[u] != INF &&
-                    dist[u]+this.graph[u][v] < dist[v]){ //{6}
+                    this.graph[u][v] != 0 && dist[u] != INF &&
+                    dist[u] + this.graph[u][v] < dist[v]) { //{6}
                     dist[v] = dist[u] + this.graph[u][v]; //{7}
                 }
             }
@@ -301,38 +301,63 @@ this.bfs = function(v){
         return dist; //{8}
     };
 
-        this.dijkstra = function(src){
-            var dist = [], visited = [],
-                length = vertMat.length;
-            for (var i = 0; i < length; i++) {
-                dist[i] = Infinity;
-                visited[i] = false;
-            }
-            dist[src] = 0; //{2}
-            for (var i = 0; i < length-1; i++){
-                var u = minDistance(dist, visited);
-                visited[u] = true;
-                for (var v = 0; v < length; v++){
-                    if (!visited[v] && vertMat[u][v]!=0 && dist[u] != Infinity && dist[u]+vertMat[u][v] < dist[v]){ //{6}
-                        dist[v] = dist[u] + this.vertMat[u][v];
-                    }
+    this.dijkstra = function (src) {
+        var dist = [], visited = [],
+            length = vertMat.length;
+        for (var i = 0; i < length; i++) {
+            dist[i] = Infinity;
+            visited[i] = false;
+        }
+        dist[src] = 0; //{2}
+        for (var i = 0; i < length - 1; i++) {
+            var u = minDistance(dist, visited);
+            visited[u] = true;
+            for (var v = 0; v < length; v++) {
+                if (!visited[v] && vertMat[u][v] != 0 && dist[u] != Infinity && dist[u] + vertMat[u][v] < dist[v]) { //{6}
+                    dist[v] = dist[u] + vertMat[u][v];
                 }
             }
-            return dist;
-        };
+        }
+        return dist;
+    };
 
-    var minDistance = function(dist, visited){
+    var minDistance = function (dist, visited) {
         var min = Infinity, minIndex = -1;
-        for (var v = 0; v < dist.length; v++){
-            if (visited[v] == false && dist[v] <= min){
+        for (var v = 0; v < dist.length; v++) {
+            if (visited[v] == false && dist[v] <= min) {
                 min = dist[v];
                 minIndex = v;
             }
         }
+        console.log(minIndex);
         return minIndex;
-    };
+    }
+    this.prim = function() {
+        var parent = [], key = [], visited = [];
+        var tamanho = vertMat.length;
+        var i;
+        for (i = 0; i < tamanho; i++) {
+            key[i] = Infinity;
+            visited[i] = false;
+        }
+        key[0] = 0;
+        parent[0] = -1;
+        for (i = 0; i < tamanho - 1; i++) {
+            var u = minDistance(key, visited);
+            visited[u] = true;
+            for (var v = 0; v < tamanho; v++) {
+                if (vertMat[u][v] && visited[v] == false && vertMat[u][v] < key[v]) {
+                    parent[v] = u;
+                    key[v] = vertMat[u][v];
+                }
+            }
+        }
+        console.log(u);
+        console.log(parent)
+        return parent;
 
-
-
-
+    }
 }
+
+
+
