@@ -314,7 +314,7 @@ this.bfs = function(v){
                 visited[u] = true;
                 for (var v = 0; v < length; v++){
                     if (!visited[v] && vertMat[u][v]!=0 && dist[u] != Infinity && dist[u]+vertMat[u][v] < dist[v]){ //{6}
-                        dist[v] = dist[u] + this.vertMat[u][v];
+                        dist[v] = dist[u] + vertMat[u][v];
                     }
                 }
             }
