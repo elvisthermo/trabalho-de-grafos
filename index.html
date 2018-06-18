@@ -7,6 +7,7 @@
 
     <title>Projeto Grafos 😐</title>
     <script src="graphs.js"></script>
+    <script src='dijkstra.js'></script>
 
     <style type="text/css">
         #filecontents {
@@ -59,8 +60,9 @@ Por favor selecione arquivo que será lido:
                         graph2.addEdge(3,1,2);
                         console.log(graph2.toString());
 */
-                        graph2 = new  Graph(6);
+                        graph2 = new Graph(6);
                         myVertices = ['A','B','C','D','E','F'];
+
                         for (i=0; i<myVertices.length; i++){
                             graph2.addVertex(myVertices[i]);
                         }
@@ -81,6 +83,21 @@ Por favor selecione arquivo que será lido:
                         //var shortestPathA = graph2.bfs(String(8+"-"+8+":"+row[8][8]));
                         //console.log(shortestPathA)
                         // ;
+                        console.log('Dijkstra start > ');
+                        graph3 = new Graph(6);
+                        graph3.matAdj();
+                        graph3.addAresta(0, 1, 2);
+                        graph3.addAresta(0, 2, 4);
+                        graph3.addAresta(1, 2, 1);
+                        graph3.addAresta(1, 3, 4);
+                        graph3.addAresta(1, 4, 2);
+                        graph3.addAresta(2, 4, 3);
+                        graph3.addAresta(3, 5, 2);
+                        graph3.addAresta(4, 3, 3);
+                        graph3.addAresta(4, 5, 2);
+
+                        graph3.dijkstra();
+
                     }
                     fileReader.readAsText(fileTobeRead);
                 }
