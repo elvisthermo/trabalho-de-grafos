@@ -26,23 +26,23 @@ Por favor selecione arquivo que será lido:
 </div>
 
 <script>
-    var fileContents;
-    window.onload = function () {
-        if (window.File && window.FileReader && window.FileList && window.Blob) {
-            let fileSelected = document.getElementById('txtfiletoread');
-            fileSelected.addEventListener('change', function (e) {
+    //var fileContents;
+    //window.onload = function () {
+        //if (window.File && window.FileReader && window.FileList && window.Blob) {
+            //let fileSelected = document.getElementById('txtfiletoread');
+            //fileSelected.addEventListener('change', function (e) {
 
-                let fileExtension = /text.*/;
-                let fileTobeRead = fileSelected.files[0];
-                if (fileTobeRead.type.match(fileExtension)) {
-                    let fileReader = new FileReader();
+                //let fileExtension = /text.*/;
+                //let fileTobeRead = fileSelected.files[0];
+                //if (fileTobeRead.type.match(fileExtension)) {
+                    //let fileReader = new FileReader();
 
-                    fileReader.onload = function (e) {
-                        fileContents = document.getElementById('filecontents');
-                        fileContents.innerText = fileReader.result;
-                        let data = fileContents.innerText;
+                        //fileReader.onload = function (e) {
+                        //fileContents = document.getElementById('filecontents');
+                        //fileContents.innerText = fileReader.result;
+                        //let data = fileContents.innerText;
 //---------------leitura do arquivo-----------------------------------------------------------
-                        let data2 = data.split('\n');
+                        //let data2 = data.split('\n');
                         //console.log(data2);
 
 //-----------------------inicie funções aqui--------------------------------------------------
@@ -98,19 +98,19 @@ Por favor selecione arquivo que será lido:
 
                         console.log(graph3.dijkstra(0));
 
-                    }
-                    fileReader.readAsText(fileTobeRead);
-                }
-                else {
-                    alert("Por favor selecione arquivo texto");
-                }
+                        //}
+                        //fileReader.readAsText(fileTobeRead);
+                //}
+                //else {
+                    //alert("Por favor selecione arquivo texto");
+               // }
 
-            }, false);
-        }
-        else {
-            alert("Arquivo(s) não suportado(s)");
-        }
-    }
+           // }, false);
+       // }
+       // else {
+       //     alert("Arquivo(s) não suportado(s)");
+       // }
+    //}
 
 
 </script>
