@@ -309,7 +309,7 @@ function Graph(numero) {
                 minIndex = v;
             }
         }
-        console.log(minIndex);
+        //console.log(minIndex);
         return minIndex;
     }
     this.prim = function() {
@@ -333,8 +333,12 @@ function Graph(numero) {
             }
         }
 
-        return parent;
+        // return parent;
+        console.log("Edge")
+        for(let j=1;j<tamanho;j++){
 
+            console.log(parent[j]+" - "+j);
+        }
     }
 
 }
