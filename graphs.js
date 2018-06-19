@@ -326,7 +326,7 @@ function Graph(numero) {
             var u = minDistance(key, visited);
             visited[u] = true;
             for (var v = 0; v < tamanho; v++) {
-                if (vertMat[u][v] && visited[v] == false && vertMat[u][v] < key[v]) {
+                if (vertMat[u][v]!=0 && visited[v] == false && vertMat[u][v] < key[v]) {
                     parent[v] = u;
                     key[v] = vertMat[u][v];
                 }
