@@ -26,23 +26,23 @@ Por favor selecione arquivo que será lido:
 </div>
 
 <script>
-    var fileContents;
-    window.onload = function () {
-        if (window.File && window.FileReader && window.FileList && window.Blob) {
-            let fileSelected = document.getElementById('txtfiletoread');
-            fileSelected.addEventListener('change', function (e) {
-
-                let fileExtension = /text.*/;
-                let fileTobeRead = fileSelected.files[0];
-                if (fileTobeRead.type.match(fileExtension)) {
-                    let fileReader = new FileReader();
-
-                    fileReader.onload = function (e) {
-                        fileContents = document.getElementById('filecontents');
-                        fileContents.innerText = fileReader.result;
-                        let data = fileContents.innerText;
+    // var fileContents;
+    // window.onload = function () {
+    //     if (window.File && window.FileReader && window.FileList && window.Blob) {
+    //         let fileSelected = document.getElementById('txtfiletoread');
+    //         fileSelected.addEventListener('change', function (e) {
+    //
+    //             let fileExtension = /text.*/;
+    //             let fileTobeRead = fileSelected.files[0];
+    //              if (fileTobeRead.type.match(fileExtension)) {
+    //                 let fileReader = new FileReader();
+    //
+    //                 fileReader.onload = function (e) {
+    //                     fileContents = document.getElementById('filecontents');
+    //                     fileContents.innerText = fileReader.result;
+    //                     let data = fileContents.innerText;
 //---------------leitura do arquivo-----------------------------------------------------------
-                        let data2 = data.split('\n');
+//                         let data2 = data.split('\n');
                         //console.log(data2);
 
 //-----------------------inicie funções aqui--------------------------------------------------
@@ -96,7 +96,6 @@ Por favor selecione arquivo que será lido:
                         graph3.addAresta(4, 3, 3);
                         graph3.addAresta(4, 5, 2);
 
-<<<<<<< HEAD
                         console.log(graph3.dijkstra(4));
                         console.log("PRIM");
 
@@ -121,23 +120,20 @@ Por favor selecione arquivo que será lido:
                         graph4.addAresta(5, 3, 2);
                         graph4.addAresta(5, 4, 2);
                         graph4.prim();
-=======
-                        console.log(graph3.dijkstra(0));
->>>>>>> 597e48a3d3d3e08b08088ca8fad3d9fda800de84
 
-                    }
-                    fileReader.readAsText(fileTobeRead);
-                }
-                else {
-                    alert("Por favor selecione arquivo texto");
-                }
-
-            }, false);
-        }
-        else {
-            alert("Arquivo(s) não suportado(s)");
-        }
-    }
+    //                 }
+    //                 fileReader.readAsText(fileTobeRead);
+    //             }
+    //             else {
+    //                 alert("Por favor selecione arquivo texto");
+    //             }
+    //
+    //         }, false);
+    //     }
+    //     else {
+    //         alert("Arquivo(s) não suportado(s)");
+    //     }
+    // }
 
 
 </script>

@@ -278,30 +278,7 @@ function Graph(numero) {
         }
         stack.push(v);
     }
-
-    this.dijkstra = function (src) {
-        var dist = [], visited = [], length = vertMat.length;
-        for (var i = 0; i < length; i++) { //{1}
-            dist[i] = INF;
-            visited[i] = false;
-        }
-
-        dist[src] = 0; //{2}
-        for (var i = 0; i < length - 1; i++) { //{3}
-            var u = minDistance(dist, visited); //{4}
-            visited[u] = true; //{5}
-            for (var v = 0; v < length; v++) {
-                if (!visited[v] &&
-                    this.graph[u][v] != 0 && dist[u] != INF &&
-                    dist[u] + this.graph[u][v] < dist[v]) { //{6}
-                    dist[v] = dist[u] + this.graph[u][v]; //{7}
-                }
-            }
-        }
-        return dist; //{8}
-    };
-
-<<<<<<< HEAD
+//--------------------dijkstra-------------------------------------------
     this.dijkstra = function (src) {
         var dist = [], visited = [],
             length = vertMat.length;
@@ -316,28 +293,13 @@ function Graph(numero) {
             for (var v = 0; v < length; v++) {
                 if (!visited[v] && vertMat[u][v] != 0 && dist[u] != Infinity && dist[u] + vertMat[u][v] < dist[v]) { //{6}
                     dist[v] = dist[u] + vertMat[u][v];
-=======
-        this.dijkstra = function(src){
-            var dist = [], visited = [],
-                length = vertMat.length;
-            for (var i = 0; i < length; i++) {
-                dist[i] = Infinity;
-                visited[i] = false;
-            }
-            dist[src] = 0; //{2}
-            for (var i = 0; i < length-1; i++){
-                var u = minDistance(dist, visited);
-                visited[u] = true;
-                for (var v = 0; v < length; v++){
-                    if (!visited[v] && vertMat[u][v]!=0 && dist[u] != Infinity && dist[u]+vertMat[u][v] < dist[v]){ //{6}
-                        dist[v] = dist[u] + vertMat[u][v];
-                    }
->>>>>>> 597e48a3d3d3e08b08088ca8fad3d9fda800de84
                 }
             }
         }
         return dist;
-    };
+
+    }
+
 
     var minDistance = function (dist, visited) {
         var min = Infinity, minIndex = -1;
@@ -370,12 +332,13 @@ function Graph(numero) {
                 }
             }
         }
-        console.log(u);
-        console.log(parent)
+
         return parent;
 
     }
+
 }
+
 
 
 
