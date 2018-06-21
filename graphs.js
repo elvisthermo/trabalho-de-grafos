@@ -300,7 +300,7 @@ function Graph(numero) {
 
     }
 
-
+//distancia minima primm-----------------
     var minDistance = function (dist, visited) {
         var min = Infinity, minIndex = -1;
         for (var v = 0; v < dist.length; v++) {
@@ -312,6 +312,8 @@ function Graph(numero) {
         //console.log(minIndex);
         return minIndex;
     }
+
+    //algoritimo de prim------------
     this.prim = function() {
         var parent = [], key = [], visited = [];
         var tamanho = vertMat.length;
@@ -334,12 +336,60 @@ function Graph(numero) {
         }
 
         // return parent;
+        console.log(parent);
         console.log("Edge")
         for(let j=1;j<tamanho;j++){
 
             console.log(parent[j]+" - "+j);
         }
     }
+
+    //-------krsukal--------------------------
+    this.kruskal = function() {
+        var length = vertMat.length,
+            parent = [], cost,
+            ne = 0, a, b, u, v, min;
+        cost = vertMat;
+
+        while(ne<length-1){
+        while(ne<length-1){
+            for (let i = 0,min = Infinity; i < length; i++) {
+                for (let j = 0; j < length; j++) {
+                    if (cost[i][j] < min) {
+                        min = cost[i][j];
+                        u = i;
+                        v = j;
+                    }
+                }
+            }
+            u = find(u, parent);
+            v = find(v, parent);
+            if (union(u, v, parent)) {
+                ne++;
+            }
+            cost[u][v] = cost[v][u] = Infinity;
+        }
+        console.log(parent);
+        return parent;
+    }
+
+
+    var union = function(i, j, parent){
+        if(i != j) {
+            parent[j] = i;
+            return true;
+        }
+        return false;
+    };
+
+    var find = function(i, parent){
+        while(parent[i]){
+            i = parent[i];
+        }
+        return i;
+    };
+
+
 
 }
 
