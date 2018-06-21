@@ -15,5 +15,5 @@
 #### floyd :heavy_check_mark:
 
 ### AGM :x:
-### Prim :x:
+### Prim :heavy_check_mark:
 ### Krushkal :x:
