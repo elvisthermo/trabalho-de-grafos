@@ -2,6 +2,7 @@ function Graph(numero) {
     this.num = numero;
     let vertices = [];
     this.adjList = new Map();
+    this.edge = [];
     let vertMat = [];
 
     //funções para matriz
@@ -21,7 +22,7 @@ function Graph(numero) {
     this.matAdj = function () {
         //vertMat.push(vertices);
         for (let i = 0; i < this.num; i++) {//numero veritices
-            console.log(i);
+            //console.log(i);
             let lista = montarLinha(numero);
             vertMat.push(lista);
         }
@@ -31,7 +32,7 @@ function Graph(numero) {
     //adicionar aresta
     this.addAresta = function (v1, v2, value) {
         vertMat[v1].splice(v2, 1, value);
-
+        this.edge.push[v1,v2,value];
     };
 
     this.removeAresta = function (v1, v2) {
@@ -344,21 +345,41 @@ function Graph(numero) {
         }
     }
 
+
+
+    function initializeCost(graph){
+        const cost = [];
+        const length  = graph.length;
+        for (let i = 0; i < length; i++) {
+            cost[i] = [];
+            for (let j = 0; j < length; j++) {
+                if (graph[i][j] === 0) {
+                    cost[i][j] = Infinity;
+                } else {
+                    cost[i][j] = graph[i][j];
+                }
+            }
+        }
+        return cost;
+
+    };
     //-------krsukal--------------------------
     this.kruskal = function() {
-        var length = vertMat.length,
-            parent = [], cost,
-            ne = 0, a, b, u, v, min;
-        cost = vertMat;
-
-        while(ne<length-1){
-        while(ne<length-1){
-            for (let i = 0,min = Infinity; i < length; i++) {
+        var length = vertMat.length;
+        const parent = [];
+        let ne = 0;
+        let a;
+        let b;
+        let u;
+        let v;
+        let cost = initializeCost(vertMat);
+        while (ne < length ) {
+            for (let i = 0, min = Infinity; i < length; i++) {
                 for (let j = 0; j < length; j++) {
                     if (cost[i][j] < min) {
                         min = cost[i][j];
-                        u = i;
-                        v = j;
+                        a = u = i;
+                        b = v = j;
                     }
                 }
             }
@@ -367,27 +388,31 @@ function Graph(numero) {
             if (union(u, v, parent)) {
                 ne++;
             }
-            cost[u][v] = cost[v][u] = Infinity;
+            cost[a][b] = cost[b][a] = Infinity;
+        }
+
+        console.log("AGM");
+        for(let j=1;j<length;j++){
+            console.log(parent[j]+" - "+j);
         }
         console.log(parent);
-        return parent;
-    }
-
-
-    var union = function(i, j, parent){
-        if(i != j) {
-            parent[j] = i;
-            return true;
-        }
-        return false;
+        //return parent;
     };
 
-    var find = function(i, parent){
-        while(parent[i]){
-            i = parent[i];
-        }
-        return i;
-    };
+    var union = function (i, j, parent) {
+            if (i != j) {
+                parent[j] = i;
+                return true;
+            }
+            return false;
+        };
+
+        var find = function (i, parent) {
+            while (parent[i]) {
+                i = parent[i];
+            }
+            return i;
+        };
 
 
 
