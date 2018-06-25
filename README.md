@@ -10,10 +10,9 @@
 
 ### Ordenação topológica e componentes fortemente conectados :heavy_check_mark:
 ### Caminho menor custo: 
-#### Dijkstra :x:
+#### Dijkstra :heavy_check_mark:
 #### ford :heavy_check_mark:
 #### floyd :heavy_check_mark:
-
-### AGM :x:
 ### Prim :heavy_check_mark:
-### Krushkal :x:
+### Krushkal :heavy_check_mark:
+
