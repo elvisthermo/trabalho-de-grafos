@@ -1,4 +1,4 @@
-function Graph(numero) {
+module.exports = function Graph(numero){
     this.num = numero;
     let vertices = [];
     this.adjList = new Map();
@@ -32,7 +32,7 @@ function Graph(numero) {
     //adicionar aresta
     this.addAresta = function (v1, v2, value) {
         vertMat[v1].splice(v2, 1, value);
-        this.edge.push[v1,v2,value];
+        this.edge.push[v1, v2, value];
     };
 
     this.removeAresta = function (v1, v2) {
@@ -315,7 +315,7 @@ function Graph(numero) {
     }
 
     //algoritimo de prim------------
-    this.prim = function() {
+    this.prim = function () {
         var parent = [], key = [], visited = [];
         var tamanho = vertMat.length;
         var i;
@@ -329,7 +329,7 @@ function Graph(numero) {
             var u = minDistance(key, visited);
             visited[u] = true;
             for (var v = 0; v < tamanho; v++) {
-                if (vertMat[u][v]!=0 && visited[v] == false && vertMat[u][v] < key[v]) {
+                if (vertMat[u][v] != 0 && visited[v] == false && vertMat[u][v] < key[v]) {
                     parent[v] = u;
                     key[v] = vertMat[u][v];
                 }
@@ -339,17 +339,16 @@ function Graph(numero) {
         // return parent;
         console.log(parent);
         console.log("Edge")
-        for(let j=1;j<tamanho;j++){
+        for (let j = 1; j < tamanho; j++) {
 
-            console.log(parent[j]+" - "+j);
+            console.log(parent[j] + " - " + j);
         }
     }
 
 
-
-    function initializeCost(graph){
+    function initializeCost(graph) {
         const cost = [];
-        const length  = graph.length;
+        const length = graph.length;
         for (let i = 0; i < length; i++) {
             cost[i] = [];
             for (let j = 0; j < length; j++) {
@@ -364,7 +363,7 @@ function Graph(numero) {
 
     };
     //-------krsukal--------------------------
-    this.kruskal = function() {
+    this.kruskal = function () {
         var length = vertMat.length;
         const parent = [];
         let ne = 0;
@@ -373,7 +372,7 @@ function Graph(numero) {
         let u;
         let v;
         let cost = initializeCost(vertMat);
-        while (ne < length ) {
+        while (ne < length) {
             for (let i = 0, min = Infinity; i < length; i++) {
                 for (let j = 0; j < length; j++) {
                     if (cost[i][j] < min) {
@@ -392,28 +391,27 @@ function Graph(numero) {
         }
 
         console.log("AGM");
-        for(let j=1;j<length;j++){
-            console.log(parent[j]+" - "+j);
+        for (let j = 1; j < length; j++) {
+            console.log(parent[j] + " - " + j);
         }
         console.log(parent);
         //return parent;
     };
 
     var union = function (i, j, parent) {
-            if (i != j) {
-                parent[j] = i;
-                return true;
-            }
-            return false;
-        };
+        if (i != j) {
+            parent[j] = i;
+            return true;
+        }
+        return false;
+    };
 
-        var find = function (i, parent) {
-            while (parent[i]) {
-                i = parent[i];
-            }
-            return i;
-        };
-
+    var find = function (i, parent) {
+        while (parent[i]) {
+            i = parent[i];
+        }
+        return i;
+    };
 
 
 }
