@@ -95,8 +95,8 @@ module.exports = function Graph(numero){
     };
 
     this.addEdge = function (v, w, value) {
-        this.adjList.get(v).push(w, ['value', value]);
-        this.adjList.get(w).push(v, ['value', value]);//lista não direcionada tirra  comentario
+        this.adjList.get(v).push(w);
+        this.adjList.get(w).push(v);//lista não direcionada tirra  comentario
 
     };
 
@@ -120,6 +120,7 @@ module.exports = function Graph(numero){
         }
         console.log("vertice:" + v + " grau: " + this.adjList.get(v).length);
     }
+
     this.checkArestaAdjList = function (v, w) {
         if (this.adjList.get(v).indexOf(w) == -1) {
             console.log("não exite  aresta! ");
