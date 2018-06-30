@@ -1,17 +1,18 @@
-function floydWarshall(graph){
+module.exports = function floydWarshall(graph){
     let dist = [];
     let size = graph.length;
 
+    let graf = matinf(graph);
 
     for (var i = 0; i < size; i += 1) {
         dist[i] = [];
         for (var j = 0; j < size; j += 1) {
             if (i === j) {
                 dist[i][j] = 0;
-            } else if (!isFinite(graph[i][j])) {
+            } else if (!isFinite(graf[i][j])) {
                 dist[i][j] = Infinity;
             } else {
-                dist[i][j] = graph[i][j];
+                dist[i][j] = graf[i][j];
             }
         }
     }
@@ -34,11 +35,25 @@ function floydWarshall(graph){
             return console.log("grafo contém ciclo negativo");
     return false;
 
+function matinf(mat) {
+    for (let i = 0; i < mat.length; i++) {
+        for (let j = 0; j < mat.length; j++) {
+            if(i== j){
+                mat[i][j] = 0;
+            }else if(mat[i][j] == 0 && i != j){
+                mat[i][j] = Infinity;
+
+            }
+        }
+    }
+    //console.log(mat);
+    return mat;
 }
-/*
-function ciclosNegativos(){
 
 }
+
+
+/*
 let graph = [
             [0, 5,Infinity, 10],
             [Infinity,0,3, Infinity],
@@ -47,5 +62,6 @@ let graph = [
             ];
 
 floydWarshall(graph);
+
 */
 

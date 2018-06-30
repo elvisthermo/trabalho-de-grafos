@@ -61,28 +61,27 @@ Por favor selecione arquivo que será lido:
                         console.log(graph2.toString());
 */
                         graph2 = new Graph(6);
-                        myVertices = ['A','B','C','D','E','F'];
+                        myVertices = [0,1,2,3];
 
                         for (i=0; i<myVertices.length; i++){
                             graph2.addVertex(myVertices[i]);
                         }
-                        graph2.addEdge('A', 'C',15);
-                        graph2.addEdge('A', 'D',46);
-                        graph2.addEdge('B', 'D',19);
-                        graph2.addEdge('B', 'E',78);
-                        graph2.addEdge('C', 'F',1);
-                        graph2.addEdge('F', 'E',65);
-
+                        graph2.addEdge(0, 1);
+                        graph2.addEdge(0, 2);
+                        graph2.addEdge(2,1);
+                        graph2.addEdge(0, 3);
                         //var result2 = graph2.buscaProfundidade('C');
                         //var result3 = graph2.bfs('C');
                         //console.log(result3);
                         console.log(graph2.toString());
+                        graph2.printSCCs();
 
                         //var result = graph2.ordenacaoTopologica();
 //-------------------------bfs----------------------------------------------------------------
                         //var shortestPathA = graph2.bfs(String(8+"-"+8+":"+row[8][8]));
                         //console.log(shortestPathA)
                         // ;
+    /*
                         console.log('Dijkstra start > ');
                         graph3 = new Graph(6);
                         graph3.matAdj();
@@ -112,7 +111,7 @@ Por favor selecione arquivo que será lido:
 
 
 
-
+*/
     //                 }
     //                 fileReader.readAsText(fileTobeRead);
     //             }

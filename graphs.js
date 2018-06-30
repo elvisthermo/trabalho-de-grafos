@@ -15,14 +15,13 @@ module.exports = function Graph(numero){
     }
 
     this.getVertMat = function () {
-        console.log(vertMat.length);
+        //console.log(vertMat.length);
+        return vertMat;
     }
 
     //adicionar elementos a matriz
     this.matAdj = function () {
-        //vertMat.push(vertices);
         for (let i = 0; i < this.num; i++) {//numero veritices
-            //console.log(i);
             let lista = montarLinha(numero);
             vertMat.push(lista);
         }
@@ -32,8 +31,13 @@ module.exports = function Graph(numero){
     //adicionar aresta
     this.addAresta = function (v1, v2, value) {
         vertMat[v1].splice(v2, 1, value);
-        this.edge.push[v1, v2, value];
+
+
     };
+
+    this.edgb = function (v1, v2, value){
+        this.edge.push([v1, v2, value]);
+    }
 
     this.removeAresta = function (v1, v2) {
         if (vertMat[v1][v2] == 0) {
@@ -107,8 +111,8 @@ module.exports = function Graph(numero){
 
 
     this.removeArestaAdjList = function (v, w) {
-        let index1 = adjList.get(v).indexOf(w);
-        let index2 = adjList.get(w).indexOf(v);
+        let index1 = this.adjList.get(v).indexOf(w);
+        let index2 = this.adjList.get(w).indexOf(v);
 
         this.adjList.get(v).splice(index1, 1);
         this.adjList.get(w).splice(index2, 1);
@@ -120,6 +124,8 @@ module.exports = function Graph(numero){
         }
         console.log("vertice:" + v + " grau: " + this.adjList.get(v).length);
     }
+
+
 
     this.checkArestaAdjList = function (v, w) {
         if (this.adjList.get(v).indexOf(w) == -1) {
@@ -145,10 +151,11 @@ module.exports = function Graph(numero){
     };
 
     //-----------verificar se o grafo e euleriano
+    /*
     this.isEuleriano = () => {
         var grau = new Map();
         let count = 0;
-        for (let v = 1; v <= vertices.length; v++) {
+        for (let v = 0; v <= vertices.length; v++) {
             grau = this.adjList.get(v).length;
             console.log(grau);
             if (grau % 2 != 0) {
@@ -161,7 +168,33 @@ module.exports = function Graph(numero){
             console.log("É euleriano");
         }
     }
+    */
 
+    this.grau = function(v1){
+        let grau = 0;
+        for (let i = 0; i < this.num; i++) {
+            if(vertMat[v1][i] > 0)
+                grau++;
+        }
+        for (let i = 0; i < this.num; i++) {
+            if(vertMat[i][v1] > 0)
+                grau++;
+        }
+        return grau;
+    }
+
+    this.isEuler = function(){
+        let grau;
+        for (let i = 0; i < this.num; i++) {
+            grau = this.grau(i);
+
+            if(grau % 2 != 0)
+                console.log("não é euleriano");
+                return false;
+        }
+        console.log("é euleriano");
+        return true;
+    }
 
 //-------------funcoes de busca--------------------------------------------------------------------------------//
 //---------------busca em profundidae-------------------------------------------------------------------------//
@@ -253,8 +286,8 @@ module.exports = function Graph(numero){
     }
 
 //-------------ordenação topologica-----------------//
-
-    this.ordenacaoTopologica = () => {
+//
+   this.ordenacaoTopologica = () => {
         var stack = [];
         var visited = [];
         for (var i = 0; i < this.num; i++) {
@@ -280,6 +313,7 @@ module.exports = function Graph(numero){
         }
         stack.push(v);
     }
+
 //--------------------dijkstra-------------------------------------------
     this.dijkstra = function (src) {
         var dist = [], visited = [],
@@ -301,6 +335,8 @@ module.exports = function Graph(numero){
         return dist;
 
     }
+
+ //------------bellmanford----------------------------------
 
 //distancia minima primm-----------------
     var minDistance = function (dist, visited) {
@@ -324,6 +360,7 @@ module.exports = function Graph(numero){
             key[i] = Infinity;
             visited[i] = false;
         }
+
         key[0] = 0;
         parent[0] = -1;
         for (i = 0; i < tamanho - 1; i++) {
@@ -345,7 +382,6 @@ module.exports = function Graph(numero){
             console.log(parent[j] + " - " + j);
         }
     }
-
 
     function initializeCost(graph) {
         const cost = [];
@@ -413,6 +449,58 @@ module.exports = function Graph(numero){
         }
         return i;
     };
+
+    //-componentes fortemente conexos-//
+    this.SCCUTIL = function(u,min,disc,stackInd,st) {
+        disc[u] = this.time;
+        min[u] = this.time;
+        this.time += 1;
+        stackInd[u] = true;
+        st.push(u);
+
+        for (let v in this.adjList.get(u)) {
+            if (disc[v] == -1) {
+                this.SCCUTIL(v, min, disc, stackInd, st);
+                min[u] = Math.min(min[u], min[v]);
+            }
+            else if (stackInd[v] == true) {
+                //atualiza valores
+                min[u] = Math.min(min[u], disc[v]);
+            }
+        }
+        //imprime vertices da pilha
+        //let w = -1;
+        let w = -1;
+        if (min[u] == disc[u]) {
+            while (w != u) {
+                w = st.pop();
+                if (stackInd[w] = true) {
+                    console.log(this.adjList.get(w));
+                    stackInd[w] = false;
+                }
+            }
+
+        }
+    }
+    this.scc = function(){
+        let disc = [],
+            min = [],
+            stackInd = [],
+            st = [];
+
+        for (let i = 0; i <this.num ; i++) {
+            disc.push(-1);
+            min.push(-1);
+            stackInd.push(false);
+        }
+
+        for (let i = 0; i <this.num; i++) {
+            if(disc[i]== -1){
+                this.SCCUTIL(i,min,disc,stackInd,st);
+            }
+        }
+
+    }
 
 
 }
