@@ -5,8 +5,10 @@ let bellman = require("./bellmanFord");
 let floyd = require("./floydwarshal");
 const readline = require('readline');
 var clear = require('clear');
+var cfc = require('./cfc');
 
 let grafo;
+let direcao = true;
 
 const rl = readline.createInterface({
     input: process.stdin,
@@ -64,6 +66,22 @@ function aresta(){
     }
 }
 
+function arestaNaoDir(){
+    const rl = readline.createInterface({
+        input: process.stdin,
+        output: process.stdout
+    });
+
+    var response = rl.question('Digite a arresta v1,v2,valor : ', answer);
+    function answer(response) {
+        let aresta = response.split(',');
+        grafo.addEdgend(aresta[0],aresta[1],aresta[2]);
+        grafo.addArestaNaoDir(aresta[0],aresta[1],parseInt(aresta[2]));
+        grafo.edgbNd(parseInt(aresta[0]),parseInt(aresta[1]),parseInt(aresta[2]));
+        submenu1();
+    }
+}
+
 function R_Aresta() {
     const rl = readline.createInterface({
         input: process.stdin,
@@ -109,7 +127,7 @@ function buscaL() {
     var response = rl.question('Digite o vertice onde iniciara a busca:', answer);
     function answer(response) {
         console.log("inicio");
-        let ini = response
+        let ini = response;
         let bl = grafo.bfs(ini);
         console.log("busca em largura:");
         console.log(bl);
@@ -158,9 +176,7 @@ function alg_dijktra() {
             bellman(g,ini,num);
         }
     }
-
         function alg_floyd() {
-
 /*
             let graph = [
                 [0, 5,Infinity, 10],
@@ -172,6 +188,22 @@ function alg_dijktra() {
             let mat = grafo.getVertMat();
             floyd(mat);
         }
+
+
+function componetesSCC(){
+    console.log("componetes fortemente conexos!");
+    cfc(grafo.num,grafo.edge);
+
+
+}
+
+function euleriano() {
+    if(!grafo.isEuler()){
+        console.log("não é euleriano");
+    }else{
+        console.log("grafo é euleriano");
+    }
+}
 
 var TestObject = function() {
     var self = this;
@@ -188,24 +220,26 @@ TestObject.prototype.printFieldB = function(arg) {
 }
 
 //--chamada do menu--------------------------------
-menuPrincipal();
+menuIniciar();
 
 //--------------------menus ---------------------
 
-/*
+
 function menuIniciar() {
         clear();
         menu.resetMenu();
         var testObject = new TestObject();
-        menu.addDelimiter('-', 40, colors.black.bgCyan('Trabalho de grafos( ͡° ͜ʖ ͡°) '))
+        menu.addDelimiter('-', 40, colors.black.bgWhite('Trabalho de grafos( ͡° ͜ʖ ͡°) '))
             .addItem(
                 'Grafo direcionado',
                 function () {
+                    direcao = true;
                     menuPrincipal();
 
                 })
             .addItem(
                 'Grafo não direcionado', function () {
+                    direcao = false;
                     menuPrincipal();
 
                 })
@@ -214,7 +248,7 @@ function menuIniciar() {
             .start();
 
 }
-*/
+
 
 function menuPrincipal() {
     clear();
@@ -235,6 +269,11 @@ function menuPrincipal() {
             })
         .addItem(
             'custo Minimo', function () {
+                if(!direcao){
+                    console.log("está opção so é possivel em grafos direcionados!");
+                    //menuPrincipal();
+                    return menuPrincipal();
+                }
                 submenu3();
 
             })
@@ -260,6 +299,9 @@ function submenu1() {
             'Adicionar arestas',
             function () {
                 aresta();
+                if(!direcao){
+                    arestaNaoDir();
+                }
             })
          .addItem(
              'Grau do vertice',
@@ -302,13 +344,13 @@ function submenu2() {
             }).addItem(
         'Componentes fortemete conexos',
         function () {
-            grafo.scc();
+           componetesSCC();
         })
 
         .addItem(
             'É euleriano',
             function () {
-                grafo.isEuler();
+                euleriano();
             })
 
 

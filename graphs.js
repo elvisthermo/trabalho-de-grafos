@@ -4,6 +4,7 @@ module.exports = function Graph(numero){
     this.adjList = new Map();
     this.edge = [];
     let vertMat = [];
+    this.mapTranp = new Map();
 
     //funções para matriz
     function montarLinha() {
@@ -32,11 +33,21 @@ module.exports = function Graph(numero){
     this.addAresta = function (v1, v2, value) {
         vertMat[v1].splice(v2, 1, value);
 
-
     };
 
+    this.addArestaNaoDir = function (v1, v2, value) {
+        vertMat[v1].splice(v2, 1, value);
+        vertMat[v2].splice(v1, 1, value);
+    };
+
+    //aresta direcionadas
     this.edgb = function (v1, v2, value){
         this.edge.push([v1, v2, value]);
+    }
+    //arestas não direcinadas
+    this.edgbNd = function (v1, v2, value){
+        this.edge.push([v1, v2, value]);
+        this.edge.push([v2, v1, value]);
     }
 
     this.removeAresta = function (v1, v2) {
@@ -90,23 +101,29 @@ module.exports = function Graph(numero){
     };
 
     //funçoes para lista
-
     //adicionar vertices lista
     this.addVertex = function (v) {
         vertices.push(v);
         this.adjList.set(v, []);
+        this.mapTranp.set(v,[]);
 
     };
 
+    //aresta direcionada lista
     this.addEdge = function (v, w, value) {
         this.adjList.get(v).push(w);
-        this.adjList.get(w).push(v);//lista não direcionada tirra  comentario
+        this.mapTranp.get(w).push(v);
+        //this.adjList.get(w).push(v);//lista não direcionada tirra  comentario
 
     };
 
-    this.addEdged = function (v, w, value) {
-        this.adjList.get(v).push(w, ['value', value]);
-        //this.adjList.get(w).push(v);//lista não direcionada tirra  comentario
+    //lista arestas não direcionadas
+    this.addEdgend = function (v, w, value) {
+        this.adjList.get(v).push(w); //['value', value]);
+        this.adjList.get(w).push(v);//lista não direcionada tirra  comentario
+        this.mapTranp.get(w).push(v);
+        this.mapTranp.get(v).push(w);
+
     };
 
 
@@ -134,7 +151,6 @@ module.exports = function Graph(numero){
         else {
             console.log("aresta existe");
         }
-
     };
 
     this.toString = function () {
@@ -173,27 +189,28 @@ module.exports = function Graph(numero){
     this.grau = function(v1){
         let grau = 0;
         for (let i = 0; i < this.num; i++) {
-            if(vertMat[v1][i] > 0)
+            if(vertMat[v1][i] != 0)
                 grau++;
         }
         for (let i = 0; i < this.num; i++) {
-            if(vertMat[i][v1] > 0)
+            if(vertMat[i][v1] != 0)
                 grau++;
         }
         return grau;
+
     }
 
     this.isEuler = function(){
         let grau;
         for (let i = 0; i < this.num; i++) {
             grau = this.grau(i);
-
             if(grau % 2 != 0)
-                console.log("não é euleriano");
+
                 return false;
         }
-        console.log("é euleriano");
+
         return true;
+
     }
 
 //-------------funcoes de busca--------------------------------------------------------------------------------//
@@ -231,6 +248,7 @@ module.exports = function Graph(numero){
     };
 
 //--------------busca em largura-----------------------------------------
+
     this.bfs = function (v) {
         console.log("inicio");
         var color = initializeColor(),
@@ -238,7 +256,7 @@ module.exports = function Graph(numero){
             d = [],
             pred = [];
         queue.push(v);
-        //console.log("fila: "+queue);
+        console.log("fila: "+queue);
 
         for (var i = 0; i < vertices.length; i++) {
             d[vertices[i]] = 0;
@@ -249,7 +267,7 @@ module.exports = function Graph(numero){
             var u = queue.shift(),
                 neighbors = this.adjList.get(u);
             color[u] = 'grey';
-            //console.log(neighbors);
+            console.log(neighbors);
             for (i = 1; i < neighbors.length; i++) {
                 var w = neighbors[i];
                 if (color[w] === 'white') {
@@ -450,58 +468,218 @@ module.exports = function Graph(numero){
         return i;
     };
 
-    //-componentes fortemente conexos-//
-    this.SCCUTIL = function(u,min,disc,stackInd,st) {
-        disc[u] = this.time;
-        min[u] = this.time;
-        this.time += 1;
-        stackInd[u] = true;
-        st.push(u);
+    //---------componentes
 
-        for (let v in this.adjList.get(u)) {
-            if (disc[v] == -1) {
-                this.SCCUTIL(v, min, disc, stackInd, st);
-                min[u] = Math.min(min[u], min[v]);
-            }
-            else if (stackInd[v] == true) {
-                //atualiza valores
-                min[u] = Math.min(min[u], disc[v]);
+    this.imprimeComponentes  = function () {
+
+        DFSUti = function (gr,vert, visitado) {
+            visitado[vert] = true;
+            let visinhos = gr.adjList.get(vert);
+            let s = '';
+            s+=vert;
+            process.stdout.write(String(s)+" ");
+            let i =0;
+            for (i in visinhos) {
+                let get_elem = visinhos[i];
+                if (!visitado[get_elem])
+                    DFSUti(gr,get_elem, visitado);
             }
         }
-        //imprime vertices da pilha
-        //let w = -1;
-        let w = -1;
-        if (min[u] == disc[u]) {
-            while (w != u) {
-                w = st.pop();
-                if (stackInd[w] = true) {
-                    console.log(this.adjList.get(w));
-                    stackInd[w] = false;
+
+        preenche= function (gr,v,visitados,pilha) {
+            visitados[v] = true;
+            let list = gr.get(v);
+            let i = 0;
+            for (i  in list) {
+                if(visitados[i]==false) {
+                    preenche(gr,i, visitados, pilha)
+                }
+            }
+            pilha.push(v);
+        }
+
+        let stack = [];
+        let visited = [] ;
+
+        for (let i = 0; i <this.num ; i++) {
+            visited.push(false);
+        }
+        for (let i = 0; i <this.num ; i++) {
+            if(visited[i] == false){
+                preenche(this.adjList,i, visited, stack);
+            }
+        }
+
+        let gr = new Graph(this.num);
+        gr.adjList = this.adjList;
+        gr.mapTranp = this.mapTranp;
+        console.log('normal',gr.adjList);
+        console.log('transposta',gr.mapTranp);
+
+        visited = [];
+
+        for (let i = 0; i <this.num ; i++) {
+            visited.push(false);
+        }
+
+        while(stack.length > 0){
+            let i = stack.length-1;
+            let v = stack[i];
+            // console.log("pilha :",stack);
+            // console.log("pilha i :",stack[i]);
+            stack.pop();
+
+            if (visited[v] == false) {
+                DFSUti(gr,v, visited);
+                console.log("\n");
+            }
+
+        }
+    }
+
+
+    /*
+        this.imprimeComponentes  = function () {
+
+            DFSUti = function (gr,vert, visitado) {
+                visitado[vert] = true;
+                let visinhos = gr.adjList.get(vert);
+                let s = '';
+                s+=vert;
+
+                console.log(String(s)+" ");
+                let i =0;
+                for (i in visinhos) {
+                    let get_elem = visinhos[i];
+                    if (!visitado[get_elem])
+                        DFSUti(gr,get_elem, visitado);
+                }
+
+            }
+
+            preenche= function (gr,v,visitados,pilha) {
+                visitados[v] = true;
+                let list = gr.get(v);
+                let i = 0;
+                for (i  in list) {
+                    if(visitados[i]==false) {
+                        preenche(gr,i, visitados, pilha)
+                    }
+                }
+                pilha.push(v);
+            }
+
+
+            let stack = [];
+            let visited = [] ;
+
+            for (let i = 0; i <this.num ; i++) {
+                visited.push(false);
+            }
+            for (let i = 0; i <this.num ; i++) {
+                if(visited[i] == false){
+                    preenche(this.adjList,i, visited, stack);
                 }
             }
 
+            let gr = new Graph(this.num);
+            gr.adjList = this.mapTranp;
+            gr.mapTranp = this.mapTranp;
+            //console.log('normal',gr.adjList);
+            //console.log('transposta',gr.mapTranp);
+
+            visited = [];
+
+            for (let i = 0; i <this.num ; i++) {
+                visited.push(false);
+            }
+
+            while(stack.length > 0){
+                let i = stack.length-1;
+                let v = stack[i];
+                // console.log("pilha :",stack);
+                // console.log("pilha i :",stack[i]);
+                stack.pop();
+
+                if (visited[v] == false) {
+                    DFSUti(gr,v, visited);
+                    console.log("-");
+                }
+
+            }
+        }
+    */
+    /*
+    this.DFSUti = function (vert, visitado) {
+        visitado[vert] = true;
+        let visinhos = this.adjList.get(vert);
+        let s = '';
+        s+=vert;
+        process.stdout.write(String(vert)+" ");
+        let i =0;
+        for (i in visinhos) {
+            let get_elem = visinhos[i];
+            if (!visitado[get_elem])
+                this.DFSUti(get_elem, visitado);
         }
     }
-    this.scc = function(){
-        let disc = [],
-            min = [],
-            stackInd = [],
-            st = [];
+
+    this.preenche= function (v,visitados,pilha) {
+        visitados[v] = true;
+        let list = this.adjList.get(v);
+        let i = 0;
+        for (i  in list) {
+            if(visitados[i]==false) {
+                this.preenche(i, visitados, pilha)
+            }
+        }
+        pilha.push(v);
+    }
+
+
+
+    this.imprimeComponentes  = function () {
+        let stack = [];
+        let visited = [] ;
 
         for (let i = 0; i <this.num ; i++) {
-            disc.push(-1);
-            min.push(-1);
-            stackInd.push(false);
+            visited.push(false);
         }
-
-        for (let i = 0; i <this.num; i++) {
-            if(disc[i]== -1){
-                this.SCCUTIL(i,min,disc,stackInd,st);
+        for (let i = 0; i <this.num ; i++) {
+            if(visited[i] == false){
+                this.preenche(i, visited, stack);
             }
         }
 
-    }
+        let gr = new Graph(this.num);
+        gr.adjList = this.adjList;
+        gr.mapTranp = this.mapTranp;
 
+        console.log('normal',gr.adjList);
+        console.log('transposta',gr.mapTranp);
+
+
+        visited = [];
+
+        for (let i = 0; i <this.num ; i++) {
+            visited.push(false);
+        }
+
+        while(!stack.length == 0){
+            let i = stack.length-1;
+            let v = stack[i];
+            // console.log("pilha :",stack);
+            // console.log("pilha i :",stack[i]);
+            stack.pop();
+
+            if (visited[v] == false) {
+                gr.DFSUti(v, visited);
+
+            }
+            console.log("\n");
+        }
+    }
+*/
 
 }
 
